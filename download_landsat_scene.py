@@ -442,9 +442,9 @@ def main():
             for station in stations:
                 for version in ['00','01','02']:			
 					nom_prod=produit+options.scene+date_asc+station+version
-					tgzfile=os.path.join(rep_scene,nom_prod+'.tgz')
+					tgzfile=os.path.join(rep_scene,nom_prod+'.tar.gz')
 					lsdestdir=os.path.join(rep_scene,nom_prod)				
-					url="https://earthexplorer.usgs.gov/download/%s/%s/STANDARD/EE"%(repert,nom_prod)
+					url="https://earthexplorer.usgs.gov/download/%s/%s/STANDARD/BulkDownload"%(repert,nom_prod)
 					print url
 					if os.path.exists(lsdestdir):
 						print '   product %s already downloaded and unzipped'%nom_prod
@@ -460,7 +460,7 @@ def main():
 									downloaded_ids.append(nom_prod)							
 					else:
 						try:
-							downloadChunks(url,"%s"%rep_scene,nom_prod+'.tgz')
+							downloadChunks(url,"%s"%rep_scene,nom_prod+'.tar.gz')
 						except:
 							print '   product %s not found'%nom_prod
 							notfound = True
@@ -525,7 +525,7 @@ def main():
         if nom_prod=='':
             sys.exit('No image was found in the catalog with the given specifications! Exiting...')
         else:				
-            tgzfile=os.path.join(rep_scene,nom_prod+'.tgz')
+            tgzfile=os.path.join(rep_scene,nom_prod+'.tar.gz')
             lsdestdir=os.path.join(rep_scene,nom_prod)
 
         if os.path.exists(lsdestdir):
@@ -542,9 +542,9 @@ def main():
         else:
             while check == 1:
                 for collectionid in repert:
-                    url="https://earthexplorer.usgs.gov/download/%s/%s/STANDARD/EE"%(collectionid,nom_prod)				
+                    url="https://earthexplorer.usgs.gov/download/%s/%s/STANDARD/BulkDownload"%(collectionid,nom_prod)
                     try:
-                        downloadChunks(url,"%s"%rep_scene,nom_prod+'.tgz')
+                        downloadChunks(url,"%s"%rep_scene,nom_prod+'.tar.gz')
                     except:
                         print '   product %s not found'%nom_prod
                         notfound = True
@@ -576,7 +576,7 @@ def main():
                 stations=['GLC','ASA','KIR','MOR','KHC', 'PAC', 'KIS', 'CHM', 'LGS', 'MGR', 'COA', 'MPS']	
             if not os.path.exists(rep+'/'+site):
                 os.mkdir(rep+'/'+site)
-            url="https://earthexplorer.usgs.gov/download/%s/%s/STANDARD/EE"%(repert,produit)
+            url="https://earthexplorer.usgs.gov/download/%s/%s/STANDARD/BulkDownload"%(repert,produit)
             print 'url=',url
             try:
                 if options.proxy!=None :
@@ -584,7 +584,7 @@ def main():
                 else:
                     connect_earthexplorer_no_proxy(usgs)
 
-                downloadChunks(url,rep+'/'+site,produit+'.tgz')
+                downloadChunks(url,rep+'/'+site,produit+'.tar.gz')
             except TypeError:
                 print 'produit %s non trouve'%produit
 
